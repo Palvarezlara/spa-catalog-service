@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor  //Reemplaza al @Autowired
@@ -14,24 +14,51 @@ public class ServicioModelService {
 
     private final IServicioModelRepository repo;
 
+    // Obtener todos
     public List<ServicioModel> findAll() {
         return repo.findAll();
     }
 
-    public List<ServicioModel> findActive() {
-        return repo.findByActiveTrue();
+    // Obtener uno por id
+    public Optional<ServicioModel> findById(Long id) {
+        return repo.findById(id);
     }
 
-    public ServicioModel findBySku(UUID sku) {
-        return repo.findById(sku).orElse(null);
-    }
-
-    public ServicioModel save(ServicioModel servicio) {
+    // Crear
+    public ServicioModel create(ServicioModel servicio) {
+        // aquí podrías validar SKU único si quieres
         return repo.save(servicio);
     }
 
-    public void delete(UUID sku) {
-        repo.deleteById(sku);
+    // Actualizar
+    public ServicioModel update(Long id, ServicioModel data) {
+        ServicioModel servicio = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+
+        servicio.setSku(data.getSku());
+        servicio.setNombre(data.getNombre());
+        servicio.setCategoria(data.getCategoria());
+        servicio.setPrecio(data.getPrecio());
+        servicio.setDuracionMin(data.getDuracionMin());
+        servicio.setImageUrl(data.getImageUrl());
+        servicio.setDescripcion(data.getDescripcion());
+        servicio.setActivo(data.getActivo());
+
+        return repo.save(servicio);
+    }
+
+    // Eliminar
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
+
+    // Cambiar estado activo/inactivo
+    public ServicioModel toggleActivo(Long id, boolean activo) {
+        ServicioModel servicio = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+
+        servicio.setActivo(activo);
+        return repo.save(servicio);
     }
 
 }
