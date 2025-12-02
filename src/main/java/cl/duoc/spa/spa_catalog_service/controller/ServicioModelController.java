@@ -8,23 +8,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/catalog/servicios")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class ServicioModelController {
 
     private final ServicioModelService servicioService;
 
-    // GET /api/v1/spadelbosque/servicios
+
     @GetMapping
     public ResponseEntity<List<ServicioModel>> getAll() {
         return ResponseEntity.ok(servicioService.findAll());
     }
 
-    // GET /api/v1/spadelbosque/servicios/{id}
+
     @GetMapping("/{id}")
     public ResponseEntity<ServicioModel> getById(@PathVariable Long id) {
         return servicioService.findById(id)
@@ -32,27 +30,27 @@ public class ServicioModelController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST /api/v1/spadelbosque/servicios
+
     @PostMapping
     public ResponseEntity<ServicioModel> create(@RequestBody ServicioModel servicio) {
         return ResponseEntity.ok(servicioService.create(servicio));
     }
 
-    // PUT /api/v1/spadelbosque/servicios/{id}
+
     @PutMapping("/{id}")
     public ResponseEntity<ServicioModel> update(@PathVariable Long id,
                                                 @RequestBody ServicioModel servicio) {
         return ResponseEntity.ok(servicioService.update(id, servicio));
     }
 
-    // DELETE /api/v1/spadelbosque/servicios/{id}
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         servicioService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    // PATCH /api/v1/spadelbosque/servicios/{id}/estado
+
     @PatchMapping("/{id}/estado")
     public ResponseEntity<ServicioModel> toggleEstado(
             @PathVariable Long id,
