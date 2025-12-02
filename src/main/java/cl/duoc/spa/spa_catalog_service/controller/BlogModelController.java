@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/catalog/blogs")
-@CrossOrigin(origins = "*") // o pones tu dominio real si deseas
 public class BlogModelController {
 
     private final BlogModelService blogService;
