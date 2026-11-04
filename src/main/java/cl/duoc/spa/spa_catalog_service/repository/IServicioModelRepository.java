@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IServicioModelRepository extends JpaRepository<ServicioModel, Long> {
     boolean existsBySku(String sku);
+
+    java.util.Optional<ServicioModel> findBySku(String sku);
 }

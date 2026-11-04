@@ -12,7 +12,7 @@
 	<artifactId>spa-catalog-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spa-catalog-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>SPA del Bosque - microservicio de catalogo (servicios, terapeutas y blogs)</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -48,8 +48,22 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- BD en memoria para desarrollo local y pruebas (perfil "h2") -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -60,6 +74,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
         <dependency>
